@@ -93,8 +93,13 @@ body {
      html { font-size: 120%; }
    /* Style information will go here */
  }
- .clearfix::before,
+
+.clearfix::before,
 .clearfix::after {
    content: " ";
    display: table;
+}
+
+.clearfix::after {
+   clear: both;
 }

@@ -62,10 +62,9 @@ body {
 }
 
 .container {
-    margin: 0 auto;
-    max-width: 64rem;
+  margin: 0 auto;
+  max-width: 64rem;
 }
-
 .container.narrow {
   max-width: 56rem;
 }
@@ -85,7 +84,6 @@ body {
      .column.third {width: 33.3%}
      .column.fourth {width: 25%;}
      .column.flow-opposite {float: right;}
-
  }
 
  /* Large screens (1024px) */

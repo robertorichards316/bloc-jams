@@ -28,6 +28,22 @@ var albumMarconi = {
      ]
  };
 
+ var albumBach = {
+   name: 'Best of Bach',
+   artist: 'Johann Sebastian Bach',
+   label: 'Compositions',
+   year: '1700',
+   albumUrl: 'assets/images/album_covers/bach.jpg',
+   songs: [
+     { name: 'Cello Suites', length: '4:34'},
+     { name: 'Christmas Oratorio', length: '5:40'},
+     { name: 'Ave Maria', length: '5:36'},
+     { name: 'Orchestral suites', length: '6:32'},
+     { name: 'Mass in B minor', length: '5:23'}
+   ]
+
+ };
+
  var createSongRow = function (songNumber, songName, songLength) {
    var template =
         '<tr class="album-view-song-item">'
@@ -62,5 +78,15 @@ var albumMarconi = {
 
  window.onload = function () {
    setCurrentAlbum(albumPicasso);
+
+   var albums = [albumPicasso, albumMarconi, albumBach];
+   var index = 1;
+   albumImage.addEventListener("click", function(event) {
+     setCurrentAlbum(albums[index]);
+     index ++;
+     if (index == albums.length) {
+       index = 0;
+     }
+   });
 
  };

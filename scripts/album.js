@@ -77,16 +77,27 @@ var albumMarconi = {
 
    }
  };
+var child = document.getElementsByClassName('album-view-title')[0];
+var noParent = document.querySelector('html');
 
  var findParentByClassName = function(element, targetClass) {
    if (element) {
      var currentParent = element.parentElement;
-     while(currentParent.className != targetClass) {
-       currentParent = currentParent.parentElement;
+
+     if (currentParent) {
+       while(currentParent.className && currentParent.className != targetClass) {
+         currentParent = currentParent.parentElement;
+       }
+       if(currentParent.className == targetClass) {
+         return currentParent;
+       }
+     } else {
+       alert("No parent with that class name found.");
+     } else {
+       alert("No parent found.");
      }
-     return currentParent;
-   }
  };
+ findParentByClassName(noParent, 'album-view');
 
  var getSongItem = function(element) {
    switch (element.className) {

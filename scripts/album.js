@@ -28,26 +28,9 @@ var albumMarconi = {
      ]
  };
 
- var albumBach = {
-   name: 'Best of Bach',
-   artist: 'Johann Sebastian Bach',
-   label: 'Compositions',
-   year: '1700',
-   albumUrl: 'assets/images/album_covers/bach.jpg',
-   songs: [
-     { name: 'Cello Suites', length: '4:34'},
-     { name: 'Christmas Oratorio', length: '5:40'},
-     { name: 'Ave Maria', length: '5:36'},
-     { name: 'Orchestral suites', length: '6:32'},
-     { name: 'Mass in B minor', length: '5:23'}
-   ]
-
- };
-
  var createSongRow = function (songNumber, songName, songLength) {
    var template =
           '<tr class="album-view-song-item">'
-      + '  <td class="song-item-number">' + songNumber + '</td>'
       + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
       + '  <td class="song-item-duration">' + songLength + '</td>'
@@ -68,8 +51,6 @@ var albumMarconi = {
         }
       };
 
-      };
-
       var onHover = function(event) {
          var songNumberCell = $(this).find('.song-item-number');
          var songNumber = songNumberCell.attr('data-song-number');
@@ -87,7 +68,7 @@ var albumMarconi = {
          }
       };
 
-      $row.find('.song-item-number').click(clickHandler);
+      $row.click(clickHandler);
       $row.hover(onHover, offHover);
 
       return $row;
@@ -111,7 +92,7 @@ var albumMarconi = {
 
 // Loop over all the songs
    for (i = 0; i < album.songs.length; i++) {
-     var $newRow = createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
+     var $newRow = createSongRow(i + 1, album.songs[i].name, album.songs[i].length);
      $albumSongList.append($newRow);
 
    }
@@ -126,15 +107,3 @@ var currentPlayingSong = null;
    setCurrentAlbum(albumPicasso);
 
  });
-
-   var albums = [albumPicasso, albumMarconi, albumBach];
-   var index = 1;
-   albumImage.addEventListener("click", function(event) {
-     setCurrentAlbum(albums[index]);
-     index ++;
-     if (index == albums.length) {
-       index = 0;
-     }
-   });
-
- };

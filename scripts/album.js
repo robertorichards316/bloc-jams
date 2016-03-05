@@ -5,6 +5,15 @@
 
  var currentAlbum = null;
 
+ var setSong = function(songNumber) {
+   currentlyPlayingSongNumber = parseInt(songNumber);
+   currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+ };
+
+ var getSongNumberCell = function(number) {
+   return $('.song-item-number[data-song-number="' + number + '"]');
+
+ };
 
  var createSongRow = function (songNumber, songName, songLength) {
    var template =
@@ -19,12 +28,13 @@
 
 
   var clickHandler = function() {
-   var songNumber = parseInt($(this).attr('data-song-number');
+   var songNumber = parseInt($(this).attr('data-song-number'));
+
    if (currentlyPlayingSongNumber !== null) {
      var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
      currentlyPlayingCell.html(currentlyPlayingSongNumber);
 
-        }
+    }
 
     if (currentlyPlayingSongNumber !== songNumber) {
        $(this).html(pauseButtonTemplate);

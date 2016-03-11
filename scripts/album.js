@@ -49,7 +49,7 @@ console.log("songLength: " + songLength);
           '<tr class="album-view-song-item">'
       + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
-      + '  <td class="song-item-duration">' + songLength + '</td>'
+      + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
       + '</tr>';
 
   var $row = $(template);
@@ -138,12 +138,40 @@ console.log($newRow);
   }
 };
 
+var setCurrentTimeInPlayerBar = function(currentTime) {
+  var $currentTimeElement = $('.seek-control .current-time');
+  $currentTimeElement.text(currentTime);
+};
+
+var setTotalTimeInPlayerBar = function(totalTime) {
+  var $totalTimeElement = $('.seek-control .total-time');
+  $totalTimeElement.text(totalTime);
+};
+
+var filterTimeCode = function(timeInSeconds) {
+  var seconds = Number.parseFloat(timeInSeconds);
+  var wholeSeconds = Math.floor(wholeSeconds);
+  var minutes = Math.floor(wholeSeconds / 60);
+  var remainingSeconds = wholeSeconds % 60;
+
+  var output = minutes + ':';
+
+  if (remainingSeconds < 10) {
+    output += '0';
+  }
+  output += remainingSeconds;
+  return output;
+};
+
 var updateSeekBarWhileSongPlays = function() {
   if (currentSoundFile) {
     currentSoundFile.bind('timeupdate', function(event) {
-      var seekBarFillRatio = this.getTime() / this.getDuration();
+      var currentTime = this.getTime();
+      var songLength = this.getDuration();
+      var seekBarFillRatio = currentTime / songLength;
       var $seekBar = $('.seek-control .seek-bar');
       updateSeekPercentage($seekBar, seekBarFillRatio);
+      setCurrentTimeInPlayerBar(filterTimeCode(currentTime));
     });
   }
 };
@@ -241,6 +269,8 @@ console.log(currentSongFromAlbum);
   $('.currently-playing .artist-name').text(currentAlbum.artist);
   $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.name + " - " + currentAlbum.artist);
   $('.main-controls .play-pause').html(playerBarPauseButton);
+
+  setTotalTimeInPlayerBar(filterTimeCode(currentSongFromAlbum));
 
   var lastSongNumber = getLastSongNumber(currentSongIndex);
   var $previousSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');

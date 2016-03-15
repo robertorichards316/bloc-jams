@@ -1,4 +1,4 @@
-//var animatePoints = function() {
+var animatePoints = function() {
 
 var revealPoint = function() {
   $(this).css({
@@ -6,12 +6,7 @@ var revealPoint = function() {
     transform: 'scaleX(1) translateY(0)'
   });
 };
-
-//$.each($('.point'), revealPoint);
-//};
-
-var animatePoints = function() {
-   $.each($('.point'), revealPoint);  //forEach(points, revealPoint);
+$.each($('.point'), revealPoint);
 };
 
 $(window).load(function() {

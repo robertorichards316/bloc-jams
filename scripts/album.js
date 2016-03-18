@@ -73,7 +73,7 @@ var albumMarconi = {
 
 // Loop over all the songs
    for (i = 0; i < album.songs.length; i++) {
-     albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].name, album.song[i].length);
+     albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].name, album.songs[i].length);
 
    }
  };

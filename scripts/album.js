@@ -258,11 +258,6 @@ var previousSong = function() {
   updatePlayerBarSong();
   currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
-  /*$('.currently-playing .song-name').text(currentSongFromAlbum.name);
-  $('.currently-playing .artist-name').text(currentAlbum.artist);
-  $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.name + " - " + currentAlbum.name);*/
-  //$('.main-controls .play-pause').html(playerBarPauseButton);
-
   var lastSongNumber = getLastSongNumber(currentSongIndex);
   var $previousSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
   var $lastSongNumberCell = $('.song-item-number[data-song-number="' + lastSongNumber + '"]');

@@ -58,7 +58,7 @@ var createSongRow = function(songNumber, songName, songLength) {
         '<tr class="album-view-song-item">'
       + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
-      + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
+      + '  <td class="song-item-duration">' + songLength + '</td>'
       + '</tr>';
 
   var $row = $(template);
@@ -142,40 +142,12 @@ var setCurrentAlbum = function(album) {
   }
 };
 
-var setCurrentTimeInPlayerBar = function(currentTime) {
-  var $currentTimeElement = $('.seek-control .current-time');
-  $currentTimeElement.text(currentTime);
-};
-
-var setTotalTimeInPlayerBar = function(totalTime) {
-  var $totalTimeElement = $('.seek-control .total-time');
-  $totalTimeElement.text(totalTime);
-};
-
-var filterTimeCode = function(timeInSeconds) {
-  var seconds = Number.parseFloat(timeInSeconds);
-  var wholeSeconds = Math.floor(wholeSeconds);
-  var minutes = Math.floor(wholeSeconds / 60);
-  var remainingSeconds = wholeSeconds % 60;
-
-  var output = minutes + ':';
-
-  if (remainingSeconds < 10) {
-    output += '0';
-  }
-  output += remainingSeconds;
-  return output;
-};
-
 var updateSeekBarWhileSongPlays = function() {
   if (currentSoundFile) {
     currentSoundFile.bind('timeupdate', function(event) {
-      var currentTime = this.getTime();
-      var songLength = this.getDuration();
-      var seekBarFillRatio = currentTime / songLength;
+      var seekBarFillRatio = this.getTime() / this.getDuration();
       var $seekBar = $('.seek-control .seek-bar');
       updateSeekPercentage($seekBar, seekBarFillRatio);
-      setCurrentTimeInPlayerBar(filterTimeCode(currentTime));
     });
   }
 };
@@ -286,6 +258,11 @@ var previousSong = function() {
   updatePlayerBarSong();
   currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
+  /*$('.currently-playing .song-name').text(currentSongFromAlbum.name);
+  $('.currently-playing .artist-name').text(currentAlbum.artist);
+  $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.name + " - " + currentAlbum.name);*/
+  //$('.main-controls .play-pause').html(playerBarPauseButton);
+
   var lastSongNumber = getLastSongNumber(currentSongIndex);
   var $previousSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
   var $lastSongNumberCell = $('.song-item-number[data-song-number="' + lastSongNumber + '"]');
@@ -293,19 +270,6 @@ var previousSong = function() {
   $previousSongNumberCell.html(pauseButtonTemplate);
   $lastSongNumberCell.html(lastSongNumber);
 
-};
-
-var togglePlayFromPlayerBar = function() {
-  var $currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
-  if (currentSoundFile.isPaused()) {
-    $currentlyPlayingCell.html(pauseButtonTemplate);
-    $(this).html(playerBarPauseButton);
-    currentSoundFile.play();
-  } else if (currentSoundFile) {
-    $currentlyPlayingCell.html(playButtonTemplate);
-    $(this).html(playerBarPlayButton);
-    currentSoundFile.pause();
-  }
 };
 
 var $previousButton = $('.main-controls .previous');

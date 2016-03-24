@@ -233,10 +233,6 @@ var setupSeekBars = function() {
   });
 };
 
-var trackIndex = function(album, song) {
-  return album.songs.indexOf(song);
-};
-
 var updatePlayerBarSong = function() {
   $('.currently-playing .song-name').text(currentSongFromAlbum.name);
   $('.currently-playing .artist-name').text(currentAlbum.artist);
@@ -244,6 +240,10 @@ var updatePlayerBarSong = function() {
   $('.main-controls .play-pause').html(playerBarPauseButton);
 
   setTotalTimeInPlayerBar(filterTimeCode(currentSongFromAlbum.length));
+};
+
+var trackIndex = function(album, song) {
+  return album.songs.indexOf(song);
 };
 
 var nextSong = function() {

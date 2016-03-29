@@ -149,8 +149,6 @@ var setCurrentTimeInPlayerBar = function(currentTime) {
 
 var setTotalTimeInPlayerBar = function(totalTime) {
   var $totalTimeElement = $('.seek-control .total-time');
-console.log("Total time: ");
-console.log(totalTime);
   $totalTimeElement.text(totalTime);
 };
 
@@ -236,12 +234,12 @@ var setupSeekBars = function() {
 };
 
 var updatePlayerBarSong = function() {
-  $('.currently-playing .song-name').text(currentSongFromAlbum.title);
+  $('.currently-playing .song-name').text(currentSongFromAlbum.name);
   $('.currently-playing .artist-name').text(currentAlbum.artist);
-  $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
+  $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.name + " - " + currentAlbum.artist);
   $('.main-controls .play-pause').html(playerBarPauseButton);
 
-  setTotalTimeInPlayerBar(filterTimeCode(currentSongFromAlbum.duration));
+  setTotalTimeInPlayerBar(filterTimeCode(currentSongFromAlbum.length));
 };
 
 var trackIndex = function(album, song) {
@@ -263,7 +261,6 @@ var nextSong = function() {
   setSong(currentSongIndex + 1);
   currentSoundFile.play();
   updatePlayerBarSong();
-  updateSeekBarWhileSongPlays();
   currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
   var lastSongNumber = getLastSongNumber(currentSongIndex);
@@ -289,7 +286,6 @@ var previousSong = function() {
   setSong(currentSongIndex + 1);
   currentSoundFile.play();
   updatePlayerBarSong();
-  updateSeekBarWhileSongPlays();
   currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
   var lastSongNumber = getLastSongNumber(currentSongIndex);
